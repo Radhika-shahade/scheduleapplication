@@ -14,35 +14,36 @@ public class WeeklyController {
 
     @Autowired
     private WeeklyService weeklyService;
-    @PostMapping("/week_schedule")
-    public String generateWeeklySchedule(@RequestParam("value") int value, @RequestParam("courseId") int id)
-    {
-       weeklyService.save(value, id);
-       return "true" ;
+
+    @PostMapping("/weekSchedule/{value}")
+//    public List<WeeklySchedule> generateWeeklySchedule(@RequestParam("value") int value, @RequestParam("courseId") int id)
+    public List<WeeklySchedule> generateWeeklySchedule(@PathVariable int value, @RequestBody WeeklySchedule weeklySchedule) {
+        int courseId = weeklySchedule.getCourseId();
+        return weeklyService.save(value, courseId);
+
     }
-    @GetMapping("/week/{id}")
-    public Optional<WeeklySchedule> getById(@PathVariable int id)
-    {
+
+    //get by course id
+    @GetMapping("/weekSchedule{courseId}")
+    public List<WeeklySchedule> getById(@RequestParam("courseId") int courseId) {
+        return weeklyService.getWeeklySchedule(courseId);
+    }
+
+    //get by week number
+    @GetMapping("/weeklySchedule{id}")
+    public Optional<WeeklySchedule> getAll(@PathVariable int id) {
         return weeklyService.getWeeklyData(id);
-    }
-    @GetMapping("/weeklySchedule")
-    public List<WeeklySchedule>getAll()
-    {
-        return weeklyService.getData();
     }
 
     @DeleteMapping("/weeklySchedule{id}")
-    public String delete(@PathVariable int id)
-    {
+    public String delete(@PathVariable int id) {
         weeklyService.deleteBYId(id);
         return "record deleted";
     }
- @PutMapping("/{id}")
-    public WeeklySchedule update(@PathVariable int id, @RequestBody WeeklySchedule weeklySchedule)
- {
 
- }
-
-
-
+    // for updating weekly data
+    @PutMapping("/updateWeeklySchedule/{id}")
+    public Optional<WeeklySchedule> update(@PathVariable int id, @RequestBody WeeklySchedule weeklySchedule) {
+        return weeklyService.updateData(id, weeklySchedule);
+    }
 }
