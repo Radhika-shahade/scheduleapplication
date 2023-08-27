@@ -15,13 +15,13 @@ public class WeeklyService {
     @Autowired
     private WeeklyRepository weeklyRepository;
 
-    public List<WeeklySchedule> save(int value,int courseId) {
-        List <WeeklySchedule>list=new ArrayList<>();
+    public List<WeeklySchedule> save(int value, int courseId) {
+        List<WeeklySchedule> list = new ArrayList<>();
 
         for (int i = 0; i < value; i++) {
             WeeklySchedule weeklySchedule = WeeklySchedule.builder()
                     .courseId(courseId)
-                    .weekNumber(i+1)
+                    .weekNumber(i + 1)
                     .title(CourseTitle.courseTitle())
                     .description("The Java Programming Fundamentals course ")
                     .level(Level.getLevel())
@@ -40,20 +40,31 @@ public class WeeklyService {
         return list;
     }
 
+    //fetching data according to week id
     public Optional<WeeklySchedule> getWeeklyData(int id) {
+
         return weeklyRepository.findById(id);
     }
-    public List<WeeklySchedule> getData()
+
+
+    public List<WeeklySchedule> getWeeklySchedule(int courseId)
     {
-        return weeklyRepository.findAll();
+        return weeklyRepository.findByCourseId(courseId);
     }
 
-    public void deleteBYId(int id)
-    {
+
+// delete by week id
+    public void deleteBYId(int id) {
         weeklyRepository.deleteById(id);
     }
-
-    public
+//update data according to week number i.e week id
+    public Optional<WeeklySchedule> updateData(int id, WeeklySchedule weeklySchedule) {
+        Optional<WeeklySchedule> list = weeklyRepository.findById(id);
+        if (list != null) {
+            weeklyRepository.save(weeklySchedule);
+        }
+        return list;
+    }
 
 
 }
