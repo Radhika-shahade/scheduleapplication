@@ -20,11 +20,18 @@ public class WeeklyController {
     public List<WeeklySchedule> generateWeeklySchedule(@PathVariable int value, @RequestBody WeeklySchedule weeklySchedule) {
         int courseId = weeklySchedule.getCourseId();
         return weeklyService.save(value, courseId);
-
+    }
+    @PostMapping("/weeklySchedule")
+      public String  saveWeeklyData(@RequestBody WeeklySchedule weeklySchedule)
+    {
+        weeklyService.save(weeklySchedule);
+        return "record inserted successfully";
     }
 
+
+
     //get by course id
-    @GetMapping("/weekSchedule{courseId}")
+    @GetMapping("/weekSchedule/{courseId}")
     public List<WeeklySchedule> getById(@RequestParam("courseId") int courseId) {
         return weeklyService.getWeeklySchedule(courseId);
     }
