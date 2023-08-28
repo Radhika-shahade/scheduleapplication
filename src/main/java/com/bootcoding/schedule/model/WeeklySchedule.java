@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +37,6 @@ public class WeeklySchedule {
     private Date modifiedDate;
     @Column(name = "modified_by")
     private String modifiedBy;
-//    @OneToMany(mappedBy = "weeklySchedule")
-//    private List<DailySchedule> dailySchedule;
+    @OneToMany(cascade=CascadeType.PERSIST)
+    private List<DailySchedule> dailySchedule=new ArrayList<>();
 }
