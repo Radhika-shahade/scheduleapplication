@@ -40,30 +40,34 @@ public class WeeklyService {
         return list;
     }
 
-    //fetching data according to week id
+    public WeeklySchedule save(WeeklySchedule weeklySchedule)
+    {
+        return weeklyRepository.save(weeklySchedule);
+    }
+
     public Optional<WeeklySchedule> getWeeklyData(int id) {
 
         return weeklyRepository.findById(id);
     }
 
-
+    //fetching data according to week id
     public List<WeeklySchedule> getWeeklySchedule(int courseId)
     {
         return weeklyRepository.findByCourseId(courseId);
     }
 
 
-// delete by week id
+   // delete by week id
     public void deleteBYId(int id) {
         weeklyRepository.deleteById(id);
     }
-//update data according to week number i.e week id
+   //update data according to week number i.e week id
     public Optional<WeeklySchedule> updateData(int id, WeeklySchedule weeklySchedule) {
-        Optional<WeeklySchedule> list = weeklyRepository.findById(id);
-        if (list != null) {
+        Optional<WeeklySchedule> courseId = weeklyRepository.findById(id);
+        if (courseId != null) {
             weeklyRepository.save(weeklySchedule);
         }
-        return list;
+        return courseId;
     }
 
 
