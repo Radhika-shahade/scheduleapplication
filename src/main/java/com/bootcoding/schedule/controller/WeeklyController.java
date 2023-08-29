@@ -28,17 +28,16 @@ public class WeeklyController {
         return "record inserted successfully";
     }
 
-
-
     //get by course id
     @GetMapping("/weekSchedule/{courseId}")
-    public List<WeeklySchedule> getById(@RequestParam("courseId") int courseId) {
+    public List<WeeklySchedule> getById(@PathVariable("courseId") int courseId) {
         return weeklyService.getWeeklySchedule(courseId);
     }
 
+
     //get by week number
-    @GetMapping("/weeklySchedule{id}")
-    public Optional<WeeklySchedule> getAll(@PathVariable int id) {
+    @GetMapping("/weeklySchedule/{id}")
+    public Optional<WeeklySchedule> getWeeklyScheduleById(@PathVariable int id) {
         return weeklyService.getWeeklyData(id);
     }
 

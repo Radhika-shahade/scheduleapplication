@@ -17,6 +17,7 @@ import java.util.Optional;
 @Service
 public class DailyService {
 
+
     @Autowired
     private DailyRepository scheduleRepository;
 
@@ -45,6 +46,11 @@ public class DailyService {
         scheduleRepository.saveAll(list);
         return list;
     }
+    public List<DailySchedule> getDailySchedule(DailySchedule dailySchedule)
+    {
+        return scheduleRepository.findAll();
+    }
+
 
     public List<DailySchedule> findByWeekScheduleId(int weekId) {
         System.out.println(weekId);
@@ -63,4 +69,13 @@ public class DailyService {
     }
 
 
+    public Optional<DailySchedule> updateDailySchedule( int dailyScheduleId,DailySchedule dailySchedule) {
+
+        Optional<DailySchedule> DailyScheduleId= scheduleRepository.findById(dailyScheduleId);
+        if(DailyScheduleId!=null)
+        {
+            scheduleRepository.save(dailySchedule);
+        }
+        return DailyScheduleId;
+    }
 }

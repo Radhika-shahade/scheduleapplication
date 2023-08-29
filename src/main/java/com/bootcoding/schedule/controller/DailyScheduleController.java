@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/schedule")
+@RequestMapping("/DailySchedule")
 public class DailyScheduleController {
 
     @Autowired
@@ -29,11 +29,17 @@ public class DailyScheduleController {
     {
         return dailyService.save(dailySchedule);
     }
+// get all daily schedule
+    @GetMapping("/dailySchedule")
+    public List <DailySchedule> getDailySchedule(DailySchedule dailySchedule)
+    {
+        return dailyService.getDailySchedule(dailySchedule);
+    }
 
 
     //get daily  details according to week id
     @GetMapping("/week/{weekId}")
-    public List<DailySchedule> getDailySchedulesByWeekId(@PathVariable int weekId) {
+    public List<DailySchedule> getDailySchedulesByWeekId(@PathVariable("weekId") int weekId) {
         return dailyService.findByWeekScheduleId(weekId);
 
     }
@@ -45,7 +51,12 @@ public class DailyScheduleController {
             dailyService.deleteById(dayId);
             return "record deleted";
         }
-
+// update daily schedule
+    @PutMapping ("/dailySchedule/{dailyScheduleId}")
+    public Optional<DailySchedule> updateDailySchedule(@PathVariable("dailyScheduleId") int dailyScheduleId,@RequestBody DailySchedule dailySchedule)
+    {
+      return dailyService.updateDailySchedule( dailyScheduleId,dailySchedule);
+    }
 
 
 

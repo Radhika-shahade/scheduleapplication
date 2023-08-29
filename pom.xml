@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bootcoding.schedule</groupId>
-	<artifactId>scheduleapplication</artifactId>
+	<artifactId>scheduleApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>scheduleapplication</name>
+	<name>scheduleApplication</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
